@@ -1,0 +1,31 @@
+name: Compilar MinecraftLauncherBR (Windows)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch: {}
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v7
+
+      - name: Instalar o .NET 8 SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restaurar os pacotes NuGet (Avalonia, CmlLib.Core, etc.)
+        run: dotnet restore
+
+      - name: Publicar o .exe (self-contained, arquivo único)
+        run: dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o ./publish
+
+      - name: Enviar o .exe como artefato do workflow
+        uses: actions/upload-artifact@v7
+        with:
+          name: MinecraftLauncherBR-Windows
+          path: ./publish/**
