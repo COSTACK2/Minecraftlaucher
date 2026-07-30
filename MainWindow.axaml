@@ -1,0 +1,155 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MinecraftLauncherBR.ViewModels"
+        x:Class="MinecraftLauncherBR.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="MinecraftLauncherBR"
+        Width="1040" Height="680" MinWidth="880" MinHeight="580"
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- ===================== Cabeçalho ===================== -->
+        <Border Grid.Row="0"
+                Background="{StaticResource SurfaceBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="24,18">
+            <StackPanel Orientation="Horizontal" Spacing="14">
+
+                <!-- Logomarca: cubo isométrico simples (identidade própria, sem usar assets do Minecraft) -->
+                <Canvas Width="34" Height="34" VerticalAlignment="Center">
+                    <Polygon Points="17,0 34,8 17,16 0,8" Fill="{StaticResource AccentLightBrush}" />
+                    <Polygon Points="0,8 17,16 17,34 0,26" Fill="{StaticResource AccentBrush}" />
+                    <Polygon Points="17,16 34,8 34,26 17,34" Fill="{StaticResource AccentDarkBrush}" />
+                </Canvas>
+
+                <StackPanel VerticalAlignment="Center" Spacing="2">
+                    <TextBlock Text="MinecraftLauncherBR" FontSize="20" FontWeight="Bold" />
+                    <TextBlock Text="Launcher não-oficial para Minecraft: Java Edition"
+                               FontSize="12" Foreground="{StaticResource TextMutedBrush}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- ===================== Conteúdo ===================== -->
+        <Grid Grid.Row="1" ColumnDefinitions="320,*" Margin="20">
+
+            <!-- ---------- Coluna esquerda: conta, versão, extras e botão Jogar ---------- -->
+            <Grid Grid.Column="0" RowDefinitions="*,Auto" Margin="0,0,16,0">
+
+                <ScrollViewer Grid.Row="0">
+                    <StackPanel Spacing="16">
+
+                        <!-- Conta -->
+                        <Border Classes="card">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="CONTA" Classes="eyebrow" />
+
+                                <Button Classes="microsoft"
+                                        Content="Entrar com a Microsoft"
+                                        Command="{Binding LoginMicrosoftCommand}"
+                                        IsVisible="{Binding !IsOfflineMode}"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Center" />
+
+                                <TextBlock Text="{Binding MicrosoftAccountLabel, StringFormat='Conectado como {0}'}"
+                                           IsVisible="{Binding IsLoggedInMicrosoft}"
+                                           Foreground="{StaticResource AccentLightBrush}"
+                                           FontSize="12" />
+
+                                <Separator Margin="0,4" />
+
+                                <CheckBox Content="Modo Offline" IsChecked="{Binding IsOfflineMode}" />
+
+                                <TextBox Text="{Binding OfflineUsername}"
+                                         Watermark="Nome de usuário"
+                                         IsEnabled="{Binding IsOfflineFieldsEnabled}" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Versão -->
+                        <Border Classes="card">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="VERSÃO DO MINECRAFT" Classes="eyebrow" />
+
+                                <ComboBox ItemsSource="{Binding Versions}"
+                                          SelectedItem="{Binding SelectedVersion}"
+                                          HorizontalAlignment="Stretch">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding DisplayName}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+
+                                <Button Content="Atualizar lista"
+                                        Command="{Binding RefreshVersionsCommand}"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Extras: mods e resource packs -->
+                        <Border Classes="card">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="EXTRAS" Classes="eyebrow" />
+
+                                <Button Content="📦 Importar Mod (.jar)"
+                                        Command="{Binding ImportModCommand}"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left" />
+
+                                <Button Content="🎨 Importar Resource Pack (.zip)"
+                                        Command="{Binding ImportResourcePackCommand}"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left" />
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Botão grande: JOGAR -->
+                <Button Grid.Row="1"
+                        Classes="primary"
+                        Content="▶  JOGAR"
+                        Command="{Binding PlayCommand}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Margin="0,16,0,0"
+                        Height="56" />
+            </Grid>
+
+            <!-- ---------- Coluna direita: status / log ---------- -->
+            <Grid Grid.Column="1" RowDefinitions="*,Auto">
+
+                <Border Grid.Row="0" Classes="card" Padding="0">
+                    <Grid RowDefinitions="Auto,*">
+                        <TextBlock Grid.Row="0" Text="STATUS" Classes="eyebrow" Margin="16,16,16,8" />
+
+                        <ScrollViewer Grid.Row="1" Margin="16,0,16,16">
+                            <TextBox x:Name="LogTextBox"
+                                     Text="{Binding LogText}"
+                                     IsReadOnly="True"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     FontFamily="Cascadia Mono,Consolas,monospace"
+                                     FontSize="12.5" />
+                        </ScrollViewer>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Classes="card" Margin="0,16,0,0">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding StatusMessage}" FontSize="13" />
+                        <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>
