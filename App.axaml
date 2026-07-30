@@ -1,0 +1,131 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MinecraftLauncherBR.App"
+             RequestedThemeVariant="Dark">
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <!-- ===================== Estilos base ===================== -->
+
+        <Style Selector="Window">
+            <Setter Property="Background" Value="{StaticResource BackgroundBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.eyebrow">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}" />
+            <Setter Property="LetterSpacing" Value="1.5" />
+        </Style>
+
+        <!-- Cartões (painéis) -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="16" />
+        </Style>
+
+        <!-- Botões -->
+        <Style Selector="Button">
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button:disabled">
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
+
+        <!-- Botão principal: JOGAR -->
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Foreground" Value="#0B1F14" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+        <!-- Botão de login Microsoft -->
+        <Style Selector="Button.microsoft">
+            <Setter Property="Background" Value="{StaticResource MicrosoftBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <!-- Campos de texto -->
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="CaretBrush" Value="{StaticResource AccentBrush}" />
+        </Style>
+
+        <!-- Combobox de versões -->
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+
+        <Style Selector="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        </Style>
+
+        <!-- Barra de progresso -->
+        <Style Selector="ProgressBar">
+            <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Height" Value="8" />
+        </Style>
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!-- ===================== Paleta de cores ===================== -->
+            <Color x:Key="ColorBackground">#14171A</Color>
+            <Color x:Key="ColorSurface">#1D2226</Color>
+            <Color x:Key="ColorSurfaceAlt">#242A2F</Color>
+            <Color x:Key="ColorBorder">#2B3237</Color>
+            <Color x:Key="ColorTextPrimary">#ECEFF1</Color>
+            <Color x:Key="ColorTextMuted">#8B959C</Color>
+            <Color x:Key="ColorAccent">#3ABF6E</Color>
+            <Color x:Key="ColorAccentDark">#1F7A45</Color>
+            <Color x:Key="ColorAccentLight">#7FE0A6</Color>
+            <Color x:Key="ColorMicrosoft">#2F6FED</Color>
+
+            <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource ColorBackground}" />
+            <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource ColorSurface}" />
+            <SolidColorBrush x:Key="SurfaceAltBrush" Color="{StaticResource ColorSurfaceAlt}" />
+            <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource ColorBorder}" />
+            <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource ColorTextPrimary}" />
+            <SolidColorBrush x:Key="TextMutedBrush" Color="{StaticResource ColorTextMuted}" />
+            <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource ColorAccent}" />
+            <SolidColorBrush x:Key="AccentDarkBrush" Color="{StaticResource ColorAccentDark}" />
+            <SolidColorBrush x:Key="AccentLightBrush" Color="{StaticResource ColorAccentLight}" />
+            <SolidColorBrush x:Key="MicrosoftBrush" Color="{StaticResource ColorMicrosoft}" />
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>
